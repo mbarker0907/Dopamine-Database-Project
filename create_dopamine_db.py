@@ -16,7 +16,19 @@ cursor.execute('''
     )
 ''')
 
-# Insert data
+# Create the Activity_Usage table with a foreign key to Activities
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Activity_Usage (
+        usage_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        activity_id INTEGER NOT NULL,
+        user_id TEXT NOT NULL,
+        date TEXT NOT NULL,
+        duration_minutes INTEGER NOT NULL,
+        FOREIGN KEY (activity_id) REFERENCES Activities(activity_id)
+    )
+''')
+
+# Insert sample data into Activities (if not already present)
 activities_data = [
     ('Methamphetamine', 1200, 1200, 'Substance', 'Highest spike, extremely addictive'),
     ('Cocaine', 225, 225, 'Substance', 'Significant spike, addictive'),
@@ -26,7 +38,17 @@ activities_data = [
     ('Exercise (e.g., Running, Yoga)', 50, 75, 'Natural', 'Natural boost, healthy reward'),
     ('Meditation (e.g., Mindfulness, Zazen)', 25, 50, 'Mindful', 'Calming, low-intensity reward')
 ]
-cursor.executemany('INSERT INTO Activities (activity_name, dopamine_min, dopamine_max, category, notes) VALUES (?, ?, ?, ?, ?)', activities_data)
+cursor.executemany('INSERT OR IGNORE INTO Activities (activity_name, dopamine_min, dopamine_max, category, notes) VALUES (?, ?, ?, ?, ?)', activities_data)
+
+# Insert sample data into Activity_Usage
+usage_data = [
+    (3, 'UserA', '2025-03-20', 120),  # Social Media for 2 hours
+    (6, 'UserA', '2025-03-20', 30),   # Exercise for 30 minutes
+    (7, 'UserA', '2025-03-20', 15),   # Meditation for 15 minutes
+    (3, 'UserB', '2025-03-20', 60),   # Social Media for 1 hour
+    (4, 'UserB', '2025-03-20', 90)    # Video Games for 1.5 hours
+]
+cursor.executemany('INSERT OR IGNORE INTO Activity_Usage (activity_id, user_id, date, duration_minutes) VALUES (?, ?, ?, ?)', usage_data)
 
 # Commit changes and close the connection
 conn.commit()
