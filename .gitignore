@@ -1,0 +1,12 @@
+# Virtual environment
+venv/
+
+# SQLite database file
+dopamine.db
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# macOS system files (if you ever work on a Mac)
+.DS_Store
