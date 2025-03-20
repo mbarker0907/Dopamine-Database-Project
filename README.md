@@ -7,3 +7,4 @@
 - Future Improvements: Add a table to track usage patterns, incorporate user-specific data for dopamine variability, and expand visualizations with more analyses (e.g., dopamine ranges, trends).
 - License: This project is licensed under the MIT License - see the LICENSE file for details.
 - Dopamine Load Query: Run `python query_dopamine_load.py` to calculate and display the cumulative dopamine load by user and date.
+- Interactive Visualization: Open `dopamine_load_interactive.html` in a web browser to explore an interactive bar chart of cumulative dopamine load by user and category (hover to see details, toggle categories via the legend).
